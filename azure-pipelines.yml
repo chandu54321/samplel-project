@@ -1,0 +1,22 @@
+pool:
+  vmImage: 'ubuntu-latest'
+trigger:
+  branches:
+    include:
+      - main
+    paths:
+      - README.md
+stages:
+  - stage: build
+    displayName: build the kubernetes
+    jobs:
+      - job: build the job
+        displayName: build the job
+        steps:
+          - script: |
+              echo Deploying to myAKSCluster
+              kubectl apply -f deployment.yaml
+              kubectl apply -f service.yaml        
+            displayName: kubernates to display
+            env:
+              KUBECONFIG: $(KUBECONFIG)
